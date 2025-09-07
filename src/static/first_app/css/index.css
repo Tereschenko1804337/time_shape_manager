@@ -1,0 +1,86 @@
+.spheres-main-block {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.spheres-main-block {
+    height: 85%;
+}
+
+.spheres-block {
+    width: 80%;
+    height: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    align-content: flex-start;
+    gap: 20px; 
+}
+
+.sphere-item {
+    flex: 0 0 calc((100% - 3*20px) / 4); /* 4 в ряд, учли 3 промежутка */
+    height: 180px;
+    box-sizing: border-box;
+    min-width: 180px;
+    padding: 40px;
+}
+
+.sphere-item.glass-block:hover {
+    box-shadow: inset 1px 1px 0px rgba(255, 255, 255, 0.85),
+                2px 2px 3px 0px rgba(0, 0, 0, 0.25); /* внешняя тень */
+    background: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+}
+
+.sphere-item-title {
+    font-size: 24px;
+    font-weight: 200;
+}
+
+.plus {
+    position: relative;
+}
+.plus::before,
+.plus::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: black;   /* цвет линии */
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  background-color: rgba(237, 236, 236, 0.90);
+}
+
+.plus::before {
+  width: 100px;   /* горизонтальная линия */
+  height: 2.5px;
+}
+
+.plus::after {
+  width: 2.5px;    /* вертикальная линия */
+  height: 100px;
+}
+
+.spheres-block {
+  height: 90%;
+  overflow-y: auto;
+}
+
+.spheres-block::-webkit-scrollbar {
+  width: 8px;
+}
+
+@media (max-width: 770px) {
+    .spheres-main-block {
+        height: 80%;
+    }
+
+    .spheres-block {
+        height: 90%;
+        overflow-y: auto;
+    }
+}

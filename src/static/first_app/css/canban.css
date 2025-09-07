@@ -1,0 +1,169 @@
+.canban-main-block {
+    height: 85%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.canban-block {
+    width: 90%;
+    height: 90%;
+}
+
+.canban-filters-block {
+    width: 100%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    gap: 16px;
+}
+
+.canban-columns-block {
+    width: 100%;
+    height: calc(100% - 70px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.canban-board {
+    width: 90%;
+    height: 100%;
+    gap: 20px;
+    display: flex;
+    overflow-x: auto;
+}
+
+/* Стили для колонки */
+.canban-column {
+    min-width: 200px;
+    height: 100%;
+    position: relative;
+}
+.canban-column > hr {
+    border: none;
+    height: 1px;
+    border-radius: 2px;
+    position: sticky;
+    top: 36px;
+    margin-bottom: 20px;
+    background-color: rgba(194, 194, 194, 0.64);
+}
+.column-title {
+    min-width: 160px;
+    width: fit-content;
+    max-width: 200px;
+    padding: 0px 10px;
+    height: 26px;
+    margin-bottom: 10px;
+    position: sticky;
+    top: 0px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    background-color: rgba(21, 255, 0, 0.24);
+}
+.column-tasks-block {
+    width: 100%;
+    height: fit-content;
+
+}
+
+/* Стили для блока задач */
+.task-block {
+    width: 100%;
+    height: fit-content;
+    padding: 16px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    cursor: all-scroll;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background-color: rgba(0, 255, 255, 0.177);
+}
+
+.task-title {
+    width: calc(200px - 40px);
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.task-description {
+    width: calc(200px - 40px);
+    font-size: 12px;
+    color: rgba(237, 236, 236, 0.65);
+    display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 6;
+    overflow: hidden;
+    text-overflow: ellipsis;  
+    cursor: initial;
+}
+
+.sub-tasks-block {
+    margin-top: 5px;
+    gap: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.subtask-item {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+
+.subtask-title {
+    width: calc(200px - 60px);
+    font-size: 12px;
+    color: rgba(237, 236, 236, 0.73);
+    margin-left: 5px;
+    display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;  
+    cursor: initial;
+}
+
+.task-block > hr {
+    border: none;
+    height: 1px;
+    border-radius: 2px;
+    background-color: rgba(194, 194, 194, 0.64);
+    margin: 5px 0px;
+}
+
+.task-deadline {
+    font-size: 12px;
+    color: rgba(237, 236, 236, 0.73);
+}
+
+.task-tags {
+    width: calc(200px - 40px);
+    height: fit-content;
+    gap: 5px;
+    display: flex;
+    align-items: center;
+    align-content: flex-start;
+    justify-content: start;
+    flex-wrap: wrap;
+    margin-top: 5px;
+}
+
+.tag-item {
+    width: fit-content;
+    height: 16px;
+    font-size: 10px;
+    padding: 0px 6px;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

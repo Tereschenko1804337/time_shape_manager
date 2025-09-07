@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ title }}</title>
+
+    <link rel="stylesheet" href="../static/first_app/css/common.css">
+    <link rel="stylesheet" href="../static/first_app/css/canban.css">
+    <link rel="stylesheet" href="../static/first_app/css/task.css">
+</head>
+<body>
+    <section class="main-section">
+        <div class="canban-main-block">
+            <div class="canban-block glass-block">
+                <div class="canban-filters-block">
+                    <input type="search" name="" id="" class="glass-input-text" placeholder="Поиск по названию...">
+                    <input type="button" name="" id="" class="glass-input-button" value="Добавить задачу">
+                </div>
+                <div class="canban-columns-block">
+                    <div class="canban-board">
+                        <div class="canban-column">
+                            <div class="column-title glass-block">
+                                Новое
+                            </div>
+                            <hr>
+                            <div class="column-tasks-block">
+
+                                <div class="task-block glass-block">
+                                    <h1 class="task-title">Название задачи чуть длиннее</h1>
+                                    <h6 class="task-description">Какое-то длинное описание задачи, которую надо сделать с обрезанным длинным опиcанием самой задачи с кучей подробностей и прям с расписсаной информацией что должно в этой задаче происходить</h6>
+                                    <div class="sub-tasks-block">
+                                        <div class="subtask-item">
+                                            <input type="checkbox" class="glass-input-checkbox" name="" id="">
+                                            <h6 class="subtask-title">Подзадача</h6>
+                                        </div>
+                                        <div class="subtask-item">
+                                            <input type="checkbox" class="glass-input-checkbox" name="" id="">
+                                            <h6 class="subtask-title">Подзадача с длинным названием</h6>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <h6 class="task-deadline">Срок: 17.07.2025 18:00</h6>
+                                    <div class="task-tags">
+                                        <div class="tag-item glass-block">Быстрое</div>
+                                        <div class="tag-item glass-block">По-работе</div>
+                                        <div class="tag-item glass-block">Семейное</div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="menu-main-block">
+            <div class="photo-and-menu-block">
+                <div class="photo-block glass-block"></div>
+                <div class="menu-block glass-block">
+                    <div class="menu-item glass-block">
+                        <h6 class="menu-item-title">Сферы жизни</h6>
+                    </div>
+                    <div class="menu-item glass-block activate">
+                        <h6 class="menu-item-title">Все задачи</h6>
+                    </div>
+                    <div class="menu-item glass-block">
+                        <h6 class="menu-item-title">Дни недели</h6>
+                    </div>
+                    <div class="menu-item glass-block">
+                        <h6 class="menu-item-title">Аналитика</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="view-task-section">
+        <div class="task-view-main-block glass-block">
+            
+        </div>
+    </section>
+</body>
+</html>

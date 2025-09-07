@@ -1,0 +1,21 @@
+.view-task-section {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+
+    transition: all 1s ease;
+}
+
+.task-view-main-block {
+    width: 460px;
+    min-height: 400px;
+    height: fit-content;
+    padding-left: 25px;
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+
+    padding-left: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
