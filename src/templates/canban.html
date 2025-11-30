@@ -10,6 +10,13 @@
     <link rel="stylesheet" href="../static/first_app/css/common.css">
     <link rel="stylesheet" href="../static/first_app/css/canban.css">
     <link rel="stylesheet" href="../static/first_app/css/task.css">
+
+    <link rel="stylesheet" href="../static/quill/css/atom-one-dark.min.css">
+    <link rel="stylesheet" href="../static/quill/css/quill.css">
+    <script src="../static/quill/js/highlight.min.js"></script>
+    <script src="../static/quill/js/quill.js"></script>
+    <script src="../static/first_app/js/select.js"></script>
+    <script src="../static/common/js/copy.js"></script>
 </head>
 <body>
     <section class="main-section">
@@ -77,10 +84,318 @@
         </div>
     </section>
 
-    <section class="view-task-section">
+    <section class="view-task-section" style="display: none;">
         <div class="task-view-main-block glass-block">
-            
+            <div class="task-view--up-bar"></div>
+            <hr>
+            <div class="task-view--settings">
+                <div class="task-view--settings--overlay">
+                    <input type="checkbox" class="glass-input-checkbox" name="" id="">
+                    <h6 class="settings-title">Подзадача с каким-то очень длинным текстом не на одну строчку</h6>
+                </div>
+            </div>
+            <div class="task-view--main-info">
+                <h1 class="main-info-title">Основное</h1>
+                <input type="text" placeholder="Введите название задачи..." class="glass-input-text small-border max-width">
+                <div class="glass-input-textarea">
+                    <div class="main-info-description"></div>
+                </div>
+            </div>
+            <hr>
+            <div class="task-view--other-parameters">
+                <h1 class="main-info-title">Параметры</h1>
+                <div class="task-view--other-parameters--start-date">
+                    <h6 class="other-parameters--name">Начало выполнения</h6>
+                    <input type="datetime-local" name="" id="id_start_date" class="glass-input-datetime">
+                </div>
+                <div class="task-view--other-parameters--end-date">
+                    <h6 class="other-parameters--name">Дедлайн</h6>
+                    <input type="datetime-local" name="" id="id_end_date" class="glass-input-datetime">
+                </div>
+
+                <div class="sphere-select" id=""></div>
+
+                <div class="importance-select" id=""></div>
+
+                <div class="status-select" id=""></div>
+
+                <div class="subtasks-select" id=""></div>
+
+                <div class="sprint-select" id=""></div>
+
+                <div class="tags-select" id=""></div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            const toolbar = [
+                [{ header: [1, 2, 3, 4, false] }],
+                ['italic', 'underline', 'strike'],
+                [{ list: 'ordered' }, { list: 'bullet' }],
+                ['link', 'blockquote', 'code-block'],
+                [{ align: [] }],
+                ['image'] // Добавляем кнопку для вставки картинок
+            ];
+
+            const quill = new Quill('.main-info-description', {
+                theme: 'snow', 
+                modules: { 
+                    toolbar: {
+                        container: toolbar,
+                        handlers: {
+                            image: () => this.handleImageUpload()
+                        }
+                    },
+                    imageResize: typeof window.ImageResize !== 'undefined' ? {
+                        parchment: window.Quill.import('parchment'),
+                        modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
+                    } : undefined
+                }
+            });
+        </script>
+    </section>
+
+    <section class="view-task-section" style="display: none;">
+        <div class="task-view-main-block glass-block">
+            <div class="task-view--up-bar">
+
+            </div>
+            <hr>
+            <div class="task-view--settings">
+                <div class="task-view--settings--overlay">
+                    <h6 class="settings-title">Подзадача с каким-то очень длинным текстом не на одну строчку</h6>
+                </div>
+            </div>
+            <div class="task-view--main-info">
+                <h1 class="main-info-title">Основное</h1>
+                <div class="task-view--title-block">
+                    <h2 class="task-view--title">Задача на разработку дизайна для новой системы управления тайменеджментом</h2>
+                    <div class="copy-button" onclick="copy_text(this)">
+                        <img src="../static/first_app/images/copy.svg" alt="">
+                    </div>
+                </div>
+                
+            </div>
+            <hr>
+            <div class="task-view--other-parameters">
+                <h1 class="main-info-title">Параметры</h1>
+                <div class="task-view--other-parameters--start-date">
+                    <h6 class="other-parameters--name">Начало выполнения</h6>
+                    <h6 class="parameter-title">26.07.2025 11:00</h6>
+                </div>
+                <div class="task-view--other-parameters--end-date">
+                    <h6 class="other-parameters--name">Дедлайн</h6>
+                    <h6 class="parameter-title">26.07.2025 14:00</h6>
+                </div>
+                <div class="task-view--other-parameters--status">
+                    <h6 class="other-parameters--name">Статус</h6>
+                    <div class="parameter-items">
+                        <div class="glass-select--selected-item glass-block">
+                            <h6>Новое</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="task-view--other-parameters--sprint">
+                    <h6 class="other-parameters--name">Спринт</h6>
+                    <h6 class="parameter-title">Вторая половина июля / 15.07.2025-31.07.2025</h6>
+                </div>
+                <div class="task-view--other-parameters--tags">
+                    <h6 class="other-parameters--name">Тэги</h6>
+                    <div class="parameter-items">
+                        <div class="glass-select--selected-item glass-block">
+                            <h6>Новое</h6>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="task-view--subtasks-block">
+                    <h1 class="subtitle">Подзадачи</h1>
+                    <div class="task-view--subtasks-items">
+                        <div class="subtask-item">
+                            <input type="checkbox" class="glass-input-checkbox" name="" id="">
+                            <h6 class="task-view--subtask--title">Подзадача</h6>
+                        </div>
+                        <div class="subtask-item">
+                            <input type="checkbox" class="glass-input-checkbox" name="" id="">
+                            <h6 class="task-view--subtask--title">Подзадача с длинным названием</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="comment-history-section">
+                <div class="comment-history-tabs">
+                    <h1 id="comment-tab" class="active" onclick="show_section(this)">Комментарии</h1>
+                    <h1 id="history-tab" onclick="show_section(this)">История</h1>
+                    <hr id="tab-indicator">
+                </div>
+                <hr>
+                <div class="tab-section comment-section">
+                    <div class="comment-field-block">
+                        <div class="glass-input-textarea">
+                            <div class="comment-filed"></div>
+                        </div>
+                        <input type="button" value="Отправить" class="glass-input-button small-border">
+
+                        <div class="comments-list">
+
+                            <div class="user-comment-block">
+                                <div class="user-photo">
+                                    <div class="photo-block photo-block-small"></div>
+                                </div>
+                                <div class="user-comment">
+                                    <div class="user-comment--title">
+                                        <div class="user-comment--title--name">Терещенко Алексей</div>
+                                        <div class="user-comment--title--date">31.07.2025 19:43</div> 
+                                    </div>
+                                    <div class="user-comment--text">
+                                        Отличная задача, решает практическую проблему! Код выглядит чистым, но можно добавить обработку краевых случаев. Предлагаю протестировать с большими данными. Хорошая работа!
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+
+                        <script type="text/javascript">
+                            // const toolbar = [
+                            //     [{ header: [1, 2, 3, 4, false] }],
+                            //     ['italic', 'underline', 'strike'],
+                            //     [{ list: 'ordered' }, { list: 'bullet' }],
+                            //     ['link', 'blockquote', 'code-block'],
+                            //     [{ align: [] }],
+                            //     ['image'] // Добавляем кнопку для вставки картинок
+                            // ];
+
+                            const commentTextareaField = new Quill('.comment-filed', {
+                                theme: 'snow', 
+                                modules: { 
+                                    toolbar: {
+                                        container: toolbar,
+                                        handlers: {
+                                            image: () => this.handleImageUpload()
+                                        }
+                                    },
+                                    imageResize: typeof window.ImageResize !== 'undefined' ? {
+                                        parchment: window.Quill.import('parchment'),
+                                        modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
+                                    } : undefined
+                                }
+                            });
+                        </script>
+                    </div>
+                    <div class=""></div>
+                </div>
+                <div class="tab-section history-section hide"></div>
+            </div>
         </div>
     </section>
+ 
+    <script type="text/javascript">
+        var tabIndicator = document.getElementById("tab-indicator");
+
+        function show_section(element) {
+            let idName = element.id.split('-')[0];
+            let tabsBlock = element.parentNode;
+
+            tabsBlock.querySelectorAll('h1')
+                .forEach(h => h.classList.toggle('active', h === element));
+
+            const sectionSelectors = Array.from(tabsBlock.querySelectorAll('h1'))
+                .map(h => '.' + h.id.split('-')[0] + '-section')
+                .join(',');
+            document.querySelectorAll(sectionSelectors).forEach(sec => {
+                sec.style.display = sec.classList.contains(idName + '-section') ? '' : 'none';
+            });
+
+            const p = tabsBlock.getBoundingClientRect();
+            const r = element.getBoundingClientRect();
+            tabIndicator.style.left  = (r.left - p.left) + 'px';
+            tabIndicator.style.top   = (r.top  - p.top + r.height) - 1 + 'px';
+            tabIndicator.style.width = r.width + 'px';
+            
+            let sections = document.getElementsByClassName('tab-section');
+            for (let i = 0; i < sections.length; i++) {
+                if (sections[i].classList.contains(`${idName}-section`)) {
+                    sections[i].classList.remove("hide");
+                }
+                else {
+                    sections[i].classList.add("hide");
+                }
+            }
+        }
+    </script>
+    
+    <script type="text/javascript">
+        const tags_mock = [
+            {
+                id: 1,
+                name: "Дом"
+            },
+            {
+                id: 2,
+                name: "Кухня"
+            },
+            {
+                id: 3,
+                name: "Школа"
+            },
+            {
+                id: 4,
+                name: "Просто тэг"
+            },
+            {
+                id: 5,
+                name: "Привет"
+            },
+            {
+                id: 6,
+                name: "Лёгкая задача"
+            },
+            {
+                id: 7,
+                name: "На потом"
+            },
+            {
+                id: 8,
+                name: "Не забыть"
+            },
+            {
+                id: 9,
+                name: "Не забить"
+            },
+        ];
+
+        var sphere = initGlassSelect({
+            items: tags_mock,
+            selector: '.sphere-select',
+            title: "Сфера",
+        });
+        var importance = initGlassSelect({
+            items: tags_mock,
+            selector: '.importance-select',
+            title: "Важность",
+        });
+        var status = initGlassSelect({
+            items: tags_mock,
+            selector: '.status-select',
+            title: "Статус",
+        });
+        var subtasks = initGlassSelect({
+            items: tags_mock,
+            selector: '.subtasks-select',
+            title: "Подзадачи",
+        });
+        var sprint = initGlassSelect({
+            items: tags_mock,
+            selector: '.sprint-select',
+            title: "Спринт",
+        });
+        var tags = initGlassSelect({
+            items: tags_mock,
+            selector: '.tags-select',
+            title: "Тэги",
+        });
+    </script>
 </body>
+</html>
 </html>

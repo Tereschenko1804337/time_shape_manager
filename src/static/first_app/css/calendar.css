@@ -1,0 +1,211 @@
+.waiter {
+    content: url("../../common/images/waiter.png");
+    position: absolute;
+    right: 20px;
+    top: -97px;
+    width: 100px;
+
+}
+
+.calendar-section {
+    width: 100%;
+    height: 85%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.calendar-main-block {
+    min-width: 320px;
+    margin-top: 5%;
+    width: 80%;
+    height: 80%;
+
+    position: relative;
+
+    padding: 20px 40px;
+    box-sizing: border-box;
+}
+
+.calendar-block {
+    position: relative;
+    height: 100%;
+}
+
+.calendar--times {
+    overflow-y: auto;
+    height: calc(100% - 36px);
+    position: relative;
+    display: grid;
+    place-items: center;
+}
+
+@media(max-width: 630px) {
+    .calendar--times {
+        height: calc(100% - 55px);
+    }
+}
+
+.calendar--row {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    height: 44px;
+    align-items: center;
+}
+.calendar--row > h6 {
+    font-size: 12px;
+    color: #d3d3d3ba;
+}
+.calendar--row > hr {
+    width: 100%;
+    height: 1.2px;
+    outline: none;
+    border: none;
+    background-color: #C2C2C233;
+}
+
+.calendar--times--rows {
+    grid-area: 1 / 1;
+    height: 100%;
+    width: 100%;
+}
+
+.calendar--times--columns {
+    height: 100%;
+    width: 100%;
+    
+    grid-area: 1 / 1;
+
+    display: flex;
+    flex-direction: row;
+}
+
+
+.calendar--times--columns > .time-column {
+    height: 100%;
+    /* width: 35%; */
+    min-width: 46px;
+}
+
+.calendar--times--columns > .day-column {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.calendar--times--columns > hr {
+    height: 100%;
+    width: 1.2px;
+    outline: none;
+    border: none;
+    background-color: #C2C2C233;
+}
+
+/* .calendar--times--columns .day-column:not(:last-child) {
+    border-right: 1px solid #000;
+} */
+
+.calendar--days {
+    width: 100%;
+    height: fit-content;
+    border-bottom: 2px solid rgba(194, 194, 194, 0.5);
+    padding-left: 47px;
+    padding-right: 8px;
+    box-sizing: border-box;
+    display: flex;
+}
+
+.calendar--days > .day-number {
+    width: 100%;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0px 5px 0px;
+}
+
+/* ------------------ */
+/* ----- задачи ----- */
+/* ------------------ */
+
+.cal-task-block {
+    top: 100px;
+    background-color: rgba(8, 33, 253, 0.2);
+
+    position: absolute;
+    left: 0px;
+    width: calc(100% - 4px);
+    margin: 2px;
+    box-sizing: border-box;
+    cursor: all-scroll;
+    border-color: rgba(255, 255, 255, 0.6);
+    padding: 10px;
+}
+
+.cal-task-hidden {
+    visibility: hidden;
+}
+
+.cal-task-ghost {
+    opacity: 0.8;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+.cal-task-shadow {
+    background-color: rgba(200, 200, 200, 0.3);
+    border: 1px dashed rgba(255, 255, 255, 0.6);
+    box-shadow: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;  
+}
+
+.cal-task-info {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
+    height: 100%;
+    gap: 5px;
+}
+
+.cal-task-status {
+    border: none;
+    outline: none;
+    min-width: 3px;
+    height: 100%;
+    border-radius: 2px;
+
+    background-color: chartreuse;
+}
+
+.cal-task-name-n-time {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.cal-task-name {
+    font-size: 1em;
+    display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.2em;
+    max-height: 2.4em;
+}
+.cal-task-time {
+    font-size: 10px;
+    line-height: 1;
+}
+
+.cal-task-time::before {
+    content: url("../../common/svgs/oclock.svg");
+    display: inline-block;
+    vertical-align: middle;
+}

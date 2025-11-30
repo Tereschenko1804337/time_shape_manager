@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Холсты с рисованием и картинками (Fabric)</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      background: #f3f4f6;
+      color: #111827;
+    }
+
+    .sidebar {
+      width: 260px;
+      padding: 16px;
+      border-right: 1px solid #e5e7eb;
+      background: #f9fafb;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .sidebar-section-title {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #6b7280;
+      margin-bottom: 4px;
+    }
+
+    .canvas-form {
+      display: flex;
+      gap: 8px;
+    }
+
+    .input {
+      flex: 1;
+      padding: 6px 8px;
+      border-radius: 6px;
+      border: 1px solid #d1d5db;
+      font-size: 13px;
+      outline: none;
+    }
+    .input:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 1px #2563eb33;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 6px;
+      background: #2563eb;
+      color: white;
+      padding: 6px 10px;
+      font-size: 13px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.12s ease, color 0.12s ease;
+    }
+    .btn:hover {
+      background: #1d4ed8;
+    }
+    .btn.secondary {
+      background: #e5e7eb;
+      color: #111827;
+    }
+    .btn.secondary:hover {
+      background: #d1d5db;
+    }
+
+    .btn.mode-active {
+      background: #2563eb !important;
+      color: #ffffff !important;
+    }
+
+    .canvas-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      max-height: 40vh;
+      overflow: auto;
+      padding-right: 4px;
+    }
+
+    .canvas-item {
+      padding: 6px 8px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      font-size: 13px;
+      cursor: pointer;
+      background: transparent;
+      text-align: left;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .canvas-item span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .canvas-item.active {
+      background: #dbeafe;
+      border-color: #2563eb;
+      color: #1d4ed8;
+    }
+
+    .canvas-item:hover {
+      background: #e5e7eb;
+    }
+
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 12px 16px;
+      gap: 8px;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      padding: 8px;
+      border-radius: 10px;
+      background: white;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .toolbar-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding-right: 8px;
+      margin-right: 4px;
+      border-right: 1px solid #e5e7eb;
+    }
+    .toolbar-group:last-child {
+      border-right: none;
+    }
+
+    .toolbar-label {
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    .color-input {
+      width: 32px;
+      height: 24px;
+      padding: 0;
+      border-radius: 6px;
+      border: 1px solid #d1d5db;
+      overflow: hidden;
+    }
+
+    .range-input {
+      width: 100px;
+    }
+
+    .canvas-wrapper {
+      flex: 1;
+      margin-top: 4px;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+      background: #f9fafb;
+      padding: 10px;
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+    }
+
+    .canvas-inner {
+      position: relative;
+      max-width: 100%;
+      max-height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #drawing-canvas {
+      border-radius: 8px;
+      border: 1px solid #d1d5db;
+      background: white;
+      touch-action: none; /* важно для пера/тача */
+    }
+
+    .empty-state {
+      font-size: 14px;
+      color: #6b7280;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+    }
+
+    #image-input {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <aside class="sidebar">
+    <div>
+      <h1>Холсты</h1>
+      <div class="sidebar-section-title">Новый холст</div>
+      <form id="create-canvas-form" class="canvas-form">
+        <input
+          id="canvas-name-input"
+          class="input"
+          type="text"
+          placeholder="Название (опционально)"
+        />
+        <button class="btn" type="submit">Создать</button>
+      </form>
+    </div>
+
+    <div>
+      <div class="sidebar-section-title">Список холстов</div>
+      <div id="canvas-list" class="canvas-list"></div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="toolbar">
+      <div class="toolbar-group">
+        <span class="toolbar-label">Режим:</span>
+        <button id="mode-select-btn" class="btn secondary" type="button">Выделение</button>
+        <button id="mode-draw-btn" class="btn secondary mode-active" type="button">Рисование</button>
+      </div>
+
+      <div class="toolbar-group">
+        <span class="toolbar-label">Кисть:</span>
+        <input
+          id="brush-color"
+          class="color-input"
+          type="color"
+          value="#111827"
+        />
+        <input
+          id="brush-size"
+          class="range-input"
+          type="range"
+          min="1"
+          max="60"
+          value="5"
+        />
+        <span id="brush-size-label" class="toolbar-label">5 px</span>
+      </div>
+
+      <div class="toolbar-group">
+        <span class="toolbar-label">Картинка:</span>
+        <button id="add-image-btn" class="btn secondary" type="button">Добавить</button>
+        <input id="image-input" type="file" accept="image/*" />
+      </div>
+
+      <div class="toolbar-group">
+        <span class="toolbar-label">Объекты:</span>
+        <button id="delete-object-btn" class="btn secondary" type="button">Удалить выбранное</button>
+        <button id="clear-canvas-btn" class="btn secondary" type="button">Очистить холст</button>
+      </div>
+    </div>
+
+    <div class="canvas-wrapper">
+      <div class="canvas-inner">
+        <canvas id="drawing-canvas" width="1024" height="640"></canvas>
+      </div>
+    </div>
+  </main>
+
+  <!-- Fabric.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.1.0/fabric.min.js"></script>
+
+  <script>
+    console.log("Fabric version:", fabric && fabric.version);
+
+    // DOM
+    const canvasEl = document.getElementById("drawing-canvas");
+    const canvasListEl = document.getElementById("canvas-list");
+    const createCanvasForm = document.getElementById("create-canvas-form");
+    const canvasNameInput = document.getElementById("canvas-name-input");
+
+    const modeSelectBtn = document.getElementById("mode-select-btn");
+    const modeDrawBtn = document.getElementById("mode-draw-btn");
+    const brushColorInput = document.getElementById("brush-color");
+    const brushSizeInput = document.getElementById("brush-size");
+    const brushSizeLabel = document.getElementById("brush-size-label");
+
+    const addImageBtn = document.getElementById("add-image-btn");
+    const imageInput = document.getElementById("image-input");
+    const deleteObjectBtn = document.getElementById("delete-object-btn");
+    const clearCanvasBtn = document.getElementById("clear-canvas-btn");
+
+    const CANVAS_WIDTH = 1024;
+    const CANVAS_HEIGHT = 640;
+
+    // Один Fabric.Canvas, много "логических" холстов (сохраняем JSON)
+    const canvas = new fabric.Canvas("drawing-canvas", {
+      backgroundColor: "#ffffff",
+      isDrawingMode: true,
+      preserveObjectStacking: true,
+      selection: false,
+    });
+
+    // Важно для пера/тача
+    canvas.upperCanvasEl.style.touchAction = "none";
+
+    // Кисть
+    canvas.freeDrawingBrush = new fabric.PencilBrush(canvas);
+    canvas.freeDrawingBrush.color = brushColorInput.value;
+    canvas.freeDrawingBrush.width = parseInt(brushSizeInput.value, 10) || 5;
+
+    let drawingMode = true;
+
+    // Список "холстов"
+    let boards = {}; // id -> { id, name, json }
+    let activeBoardId = null;
+    let boardCounter = 1;
+
+    function applyBrushSettings() {
+      if (!canvas.freeDrawingBrush) return;
+      const color = brushColorInput.value;
+      const size = parseInt(brushSizeInput.value, 10) || 5;
+      canvas.freeDrawingBrush.color = color;
+      canvas.freeDrawingBrush.width = size;
+      brushSizeLabel.textContent = size + " px";
+    }
+
+    function applyDrawingMode() {
+      canvas.isDrawingMode = drawingMode;
+      canvas.selection = !drawingMode;
+
+      if (drawingMode) {
+        modeDrawBtn.classList.add("mode-active");
+        modeSelectBtn.classList.remove("mode-active");
+      } else {
+        modeSelectBtn.classList.add("mode-active");
+        modeDrawBtn.classList.remove("mode-active");
+      }
+
+      canvas.discardActiveObject();
+      canvas.requestRenderAll();
+    }
+
+    function createBoard(name) {
+      const id = "board-" + Date.now() + "-" + Math.random().toString(16).slice(2);
+      const displayName = name && name.trim() ? name.trim() : "Холст " + boardCounter++;
+
+      // Сохраняем ТЕКУЩЕЕ состояние в новый холст (пока пустое при первом создании)
+      boards[id] = {
+        id,
+        name: displayName,
+        json: canvas.toJSON(),
+      };
+
+      // Элемент в списке
+      const item = document.createElement("button");
+      item.type = "button";
+      item.className = "canvas-item";
+      item.dataset.boardId = id;
+
+      const nameSpan = document.createElement("span");
+      nameSpan.textContent = displayName;
+      const extraSpan = document.createElement("span");
+      extraSpan.textContent = "";
+
+      item.appendChild(nameSpan);
+      item.appendChild(extraSpan);
+
+      item.addEventListener("click", () => switchBoard(id));
+
+      canvasListEl.appendChild(item);
+      boards[id].listItem = item;
+
+      if (!activeBoardId) {
+        switchBoard(id);
+      }
+    }
+
+    function switchBoard(id) {
+      if (!boards[id]) return;
+
+      // Сохранить текущее состояние активного холста
+      if (activeBoardId && boards[activeBoardId]) {
+        boards[activeBoardId].json = canvas.toJSON();
+      }
+
+      activeBoardId = id;
+
+      // Активный класс в списке
+      Object.values(boards).forEach((b) => {
+        if (b.listItem) {
+          b.listItem.classList.toggle("active", b.id === id);
+        }
+      });
+
+      // Загрузить состояние выбранного холста
+      canvas.loadFromJSON(boards[id].json, () => {
+        applyBrushSettings();
+        applyDrawingMode();
+        canvas.renderAll();
+      });
+    }
+
+    // Создание холста
+    createCanvasForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      createBoard(canvasNameInput.value);
+      canvasNameInput.value = "";
+    });
+
+    // Режимы
+    modeSelectBtn.addEventListener("click", () => {
+      drawingMode = false;
+      applyDrawingMode();
+    });
+
+    modeDrawBtn.addEventListener("click", () => {
+      drawingMode = true;
+      applyDrawingMode();
+    });
+
+    // Настройки кисти
+    brushColorInput.addEventListener("input", () => {
+      applyBrushSettings();
+    });
+
+    brushSizeInput.addEventListener("input", () => {
+      applyBrushSettings();
+    });
+
+    // Добавление картинки
+    addImageBtn.addEventListener("click", () => {
+      if (!activeBoardId) {
+        alert("Сначала создайте холст.");
+        return;
+      }
+      imageInput.click();
+    });
+
+    imageInput.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      if (!activeBoardId) {
+        alert("Сначала создайте холст.");
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function (evt) {
+        const dataUrl = evt.target.result;
+        fabric.Image.fromURL(
+          dataUrl,
+          (img) => {
+            const maxWidth = CANVAS_WIDTH * 0.8;
+            const maxHeight = CANVAS_HEIGHT * 0.8;
+            const scale = Math.min(
+              maxWidth / img.width,
+              maxHeight / img.height,
+              1
+            );
+            img.set({
+              left: CANVAS_WIDTH / 2,
+              top: CANVAS_HEIGHT / 2,
+              originX: "center",
+              originY: "center",
+            });
+            img.scale(scale);
+            canvas.add(img);
+            canvas.setActiveObject(img);
+            canvas.requestRenderAll();
+          },
+          { crossOrigin: "anonymous" }
+        );
+      };
+      reader.readAsDataURL(file);
+      imageInput.value = "";
+    });
+
+    // Удаление выбранного объекта
+    deleteObjectBtn.addEventListener("click", () => {
+      const activeObject = canvas.getActiveObject();
+      if (activeObject) {
+        canvas.remove(activeObject);
+        canvas.requestRenderAll();
+      }
+    });
+
+    // Очистка холста
+    clearCanvasBtn.addEventListener("click", () => {
+      if (!activeBoardId) return;
+      if (!confirm("Очистить текущий холст?")) return;
+      canvas.clear();
+      canvas.setBackgroundColor("#ffffff", () => {});
+      canvas.requestRenderAll();
+    });
+
+    // Старт: сразу создадим первый холст
+    createBoard("Холст 1");
+  </script>
+</body>
+</html>

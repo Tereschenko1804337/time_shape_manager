@@ -12,11 +12,23 @@
 body {
     height: 100vh;
     width: 100vw;
-    background-image: url('../../common/images/background.jpg');
+    background-image: url('../../common/images/background2.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
+}
+
+hr {
+    border: none;
+    outline: none;
+    height: 1px;
+    background-color: rgba(255, 255, 255, .5);
+    border-radius: 4px;
+}
+
+.hide {
+    display: none;
 }
 
 .main-section {
@@ -71,6 +83,10 @@ body {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+}
+.photo-block-small {
+    width: 40px;
+    height: 40px;
 }
 
 .menu-item {
@@ -145,12 +161,31 @@ body {
 
 /* Стили для полей ввода */
 
+/* input:date */
+/* input:datetime */
+.glass-input-datetime {
+    width: fit-content;
+    height: 30px;
+    padding: 0px 16px;
+    box-sizing: border-box;
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    box-shadow: inset 2px 2px 3px 0px rgba(0, 0, 0, 0.25);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.85);
+    border-right: 1px solid rgba(255, 255, 255, 0.85);
+}
+
 /* input:text */
 /* input:search */
-.glass-input-text {
+/* input:textarea */
+.glass-input-text, .glass-input-textarea {
     width: 200px;
     height: 30px;
     padding-left: 16px;
+    box-sizing: border-box;
     font-size: 14px;
     background: rgba(255, 255, 255, 0.1);
     border: none;
@@ -159,9 +194,16 @@ body {
     box-shadow: inset 2px 2px 3px 0px rgba(0, 0, 0, 0.25);
     border-bottom: 1px solid rgba(255, 255, 255, 0.85);
     border-right: 1px solid rgba(255, 255, 255, 0.85);
+    /* border-radius:  5px 5px 0px 0px !important; */
 }
-.glass-input-block::placeholder {
+.glass-input-text::placeholder {
     color: rgba(210, 210, 210, 0.73);
+}
+.glass-input-textarea {
+    width: 100%;
+    height: fit-content;
+    padding: initial;
+    border-radius: 10px;
 }
 
 /* input:button */
@@ -189,6 +231,13 @@ body {
     border-right: 1px solid rgba(255, 255, 255, 0.85);
 }
 
+.small-border {
+    border-radius: 10px;
+}
+.max-width {
+    width: 100%;
+}
+
 /* input:checkbox */
 .glass-input-checkbox {
     appearance: none; 
@@ -196,6 +245,8 @@ body {
         -moz-appearance: none;     /* Firefox */
     width: 18px;
     height: 18px;
+    min-width: 18px;
+    min-height: 18px;
     background: transparent;
     border: 1px solid #ACACAC;
     border-radius: 5px;  
@@ -219,4 +270,105 @@ body {
   color: #858585;
   text-align: center;
   line-height: 18px;
+}
+
+/* Стили для выпадающего списка */
+.glass-select {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background-color: rgba(255, 255, 255, .2);
+    padding: 10px;
+    border-radius: 5px 0px 0px 5px;
+    position: relative;
+}
+
+.glass-select--title {
+    font-size: 14px;
+}
+
+.glass-select--drop-list {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.glass-select--drop-list--items {
+    display: none;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: absolute;
+    top: 30px;
+    width: 100%;
+    height: 200px;
+    background-color: rgba(255, 255, 255, .28);
+    border-radius: 0px 0px 5px 5px;
+    backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+    box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.25);
+    z-index: 1;
+}
+.glass-select--drop-list--items hr {
+    width: 95%;
+    opacity: .4;
+    border: none;
+    border-top: 1px solid #fff;
+}
+.drop-list--items--show {
+    display: flex;
+    align-items: center;
+    background-color: rgba(139, 139, 139, 0.66);
+}
+
+.glass-select--selected-items {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.glass-select--selected-item {
+    width: fit-content;
+    height: fit-content;
+    border-radius: 3px;
+    padding: 4px 5px;
+    display: flex;
+    gap: 5px;
+}
+.glass-select--selected-item > h6 {
+    font-size: 14px;
+}
+.tag-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.tag-close img { width: 16px; height: 16px; pointer-events: none; }
+.tag-close:hover { opacity: .8; }
+
+.glass-select--drop-list--value {
+    width: 100%;
+    height: fit-content;
+    padding: 5px 0px 5px 10px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+.glass-select--drop-list--value:hover {
+    background-color: rgba(255, 255, 255, .15);
+}
+.glass-select--drop-list--value > h6 {
+    font-size: 14px;
+}
+
+/* -------- */
+.copy-button {
+    background: none;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    width: 15px;
+    height: 15px;
+    display: flex;
 }

@@ -1,0 +1,27 @@
+.cat_foot__main_block {
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    z-index: 1000000;
+}
+
+.cat_foot__main_block>hr {
+    display: none;
+}
+
+.cat_foot__main_block>img {
+    position: absolute;
+}
+
+/* @keyframes moveDiagonally {
+    0% {
+        transform: translatex(0px) translatey(0px)
+    }
+    100% {
+        transform: translatex(100px) translatey(100px);
+    }
+}
+
+.foot {
+    animation: 1s linear 0s infinite alternate moveDiagonally;
+} */
